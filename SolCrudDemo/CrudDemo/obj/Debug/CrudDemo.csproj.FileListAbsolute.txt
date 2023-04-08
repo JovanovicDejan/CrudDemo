@@ -9,3 +9,4 @@ C:\Users\dejan\Desktop\Microsoft Za pristup\CRUD Demo\SolCrudDemo\CrudDemo\obj\D
 C:\Users\dejan\Desktop\Microsoft Za pristup\CRUD Demo\SolCrudDemo\CrudDemo\obj\Debug\CrudDemo.csproj.CoreCompileInputs.cache
 C:\Users\dejan\Desktop\Microsoft Za pristup\CRUD Demo\SolCrudDemo\CrudDemo\obj\Debug\CrudDemo.exe
 C:\Users\dejan\Desktop\Microsoft Za pristup\CRUD Demo\SolCrudDemo\CrudDemo\obj\Debug\CrudDemo.pdb
+C:\Users\dejan\Desktop\Microsoft Za pristup\CRUD Demo\SolCrudDemo\CrudDemo\obj\Debug\CrudDemo.Form2.resources

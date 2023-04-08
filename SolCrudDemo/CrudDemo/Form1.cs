@@ -26,6 +26,7 @@ namespace CrudDemo
         private void btnInsert_Click(object sender, EventArgs e)
         {
             //Validation
+            Cursor.Current = Cursors.WaitCursor;
             if (txtNaziv.Text.Trim()=="")
             {
                 MessageBox.Show("Enter product name");
@@ -66,6 +67,14 @@ namespace CrudDemo
                 {
                     MessageBox.Show("Product added");
                 }
+                else if(Ret == -1)
+                {
+                    MessageBox.Show("Supplier unknown");
+                }
+                else if (Ret == -2)
+                {
+                    MessageBox.Show("Category unknown");
+                }
                 else
                 {
                     MessageBox.Show("Error: " + Ret.ToString());
@@ -75,8 +84,81 @@ namespace CrudDemo
             {
                 MessageBox.Show(ex.Message);
             }
+            Cursor.Current = Cursors.Default;
+        }
 
+        private void btnInsertForm_Click(object sender, EventArgs e)
+        {
+            Form2 x = new Form2();
+            x.ShowDialog();
+        }
 
+        private void Form1_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnDelete_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                int Ret = DataAccess.ProductDelete
+                    (
+                    Convert.ToInt32(txtProductIdentif.Text)
+                    );
+                if(Ret == 0)
+                {
+                    MessageBox.Show("Product deleted");
+                }else if(Ret == -1)
+                {
+                    MessageBox.Show("Unable to delete product");
+                }else if(Ret == -2)
+                {
+                    MessageBox.Show("Product does not exists");
+                }
+                else
+                {
+                    MessageBox.Show("Error " + Ret.ToString());
+                }
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            };
+        }
+
+        private void btnUpdate_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                Cursor.Current = Cursors.WaitCursor;
+                int Ret = DataAccess.ProductsUpdate
+                    (
+                      Convert.ToInt32(txtProductIdentif.Text)
+                    , txtNaziv.Text
+                    , Convert.ToInt32(txtSupplier.Text)
+                    , Convert.ToInt32(txtCategory.Text)
+                    , Convert.ToDecimal(txtUnitPrice.Text)
+                    , chkDiscontinued.Checked
+                    );
+                Cursor.Current = Cursors.Default;
+                if (Ret == 0)
+                {
+                    MessageBox.Show("Product updated!");
+                }
+                else if(Ret == -1)
+                {
+                    MessageBox.Show("Product does not exists");
+                }
+                else
+                {
+                    MessageBox.Show("Error: " + Ret.ToString());
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
     }
 }

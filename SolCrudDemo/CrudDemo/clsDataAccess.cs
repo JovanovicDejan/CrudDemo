@@ -49,7 +49,64 @@ namespace CrudDemo
             {
                 throw new Exception("Error: " + ex.Message);
             }
+        }
 
+        public int ProductDelete(int productid)
+        {
+            SqlCommand Cm = new SqlCommand();
+            Cm.Connection = Cn;
+            Cm.CommandType = CommandType.StoredProcedure;
+            Cm.CommandText = "Production.ProductDelete";
+
+            //Parameters
+            Cm.Parameters.Add(new SqlParameter("@RETURN_VALUE", SqlDbType.Int, 4,ParameterDirection.ReturnValue, true, 0, 0, "", DataRowVersion.Current, null));
+            Cm.Parameters.AddWithValue("@productid", productid);
+
+            try
+            {
+                //Checking if connection is already opened
+                if (Cn.State == ConnectionState.Closed) { Cn.Open(); }
+
+                Cm.ExecuteNonQuery();
+
+                Cn.Close();
+
+                return Convert.ToInt32(Cm.Parameters["@RETURN_VALUE"].Value);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error: " + ex.Message);
+            }
+        }
+
+        public int ProductsUpdate(int productid, string productname, int supplierid, int categoryid, decimal unitprice, bool discontinued)
+        {
+            SqlCommand Cm = new SqlCommand();
+            Cm.Connection = Cn;
+            Cm.CommandType = CommandType.StoredProcedure;
+            Cm.CommandText = "Production.ProductsUpdate";
+
+
+            Cm.Parameters.Add(new SqlParameter("@RETURN_VALUE", SqlDbType.Int, 4, ParameterDirection.ReturnValue, true, 0, 0, "", DataRowVersion.Current, null));
+            Cm.Parameters.AddWithValue("@productid", productid);
+            Cm.Parameters.AddWithValue("@productname", supplierid);
+            Cm.Parameters.AddWithValue("@supplierid", supplierid);
+            Cm.Parameters.AddWithValue("@categoryid", categoryid);
+            Cm.Parameters.AddWithValue("@unitprice", unitprice);
+            Cm.Parameters.AddWithValue("@discontinued", discontinued);
+
+
+            try
+            {
+                if(Cn.State == ConnectionState.Closed) { Cn.Open(); }
+                Cm.ExecuteNonQuery();
+                Cn.Close();
+                return Convert.ToInt32(Cm.Parameters["@RETURN_VALUE"].Value);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error: " + ex.Message);
+            }
         }
     }
 }
